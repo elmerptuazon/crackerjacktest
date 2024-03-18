@@ -76,5 +76,10 @@ return [
     'captchaRequire'   => 'Merci d\utiliser le Captcha',
     'CaptchaWrong'     => 'Captcha incorrect, essayez à nouveau.',
     'roleRequired'     => 'Rôle utilisateur nécesaire.',
-
+    'telNo'            => 'Telephone number is required.',
+    'address1'         => 'Address required',
+    'address2'         => 'Address required',
+    'city'             => 'City required',
+    'state'            => 'State required',
+    'zipCode'          => 'Zip Code required',
 ];

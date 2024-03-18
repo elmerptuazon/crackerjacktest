@@ -22,10 +22,6 @@ class ActivationRepository
             ->where('created_at', '>=', Carbon::now()->subHours(config('settings.timePeriod')))
             ->count();
 
-        if ($activations >= config('settings.maxAttempts')) {
-            return true;
-        }
-
         //if user changed activated email to new one
         if ($user->activated) {
             $user->update([
@@ -34,10 +30,10 @@ class ActivationRepository
         }
 
         // Create new Activation record for this user
-        $activation = self::createNewActivationToken($user);
+        // $activation = self::createNewActivationToken($user);
 
         // Send activation email notification
-        self::sendNewActivationEmail($user, $activation->token);
+        // self::sendNewActivationEmail($user, $activation->token);
     }
 
     /**

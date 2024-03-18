@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activation;
 use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
@@ -72,8 +73,14 @@ class RegisterController extends Controller
                 'email'                 => 'required|email|max:255|unique:users',
                 'password'              => 'required|min:6|max:30|confirmed',
                 'password_confirmation' => 'required|same:password',
-                'g-recaptcha-response'  => '',
-                'captcha'               => 'required|min:1',
+                'tel_no'                => 'required',
+                'address1'              => 'required',
+                'address2'              => 'required',
+                'city'                  => 'required',
+                'state'                 => 'required',
+                'zip_code'              => 'required',
+                // 'g-recaptcha-response'  => '',
+                // 'captcha'               => 'required|min:1',
             ],
             [
                 'name.unique'                   => trans('auth.userNameTaken'),
@@ -85,8 +92,14 @@ class RegisterController extends Controller
                 'password.required'             => trans('auth.passwordRequired'),
                 'password.min'                  => trans('auth.PasswordMin'),
                 'password.max'                  => trans('auth.PasswordMax'),
-                'g-recaptcha-response.required' => trans('auth.captchaRequire'),
-                'captcha.min'                   => trans('auth.CaptchaWrong'),
+                'tel_no'                        => trans('auth.telNo'),
+                'address1'                      => trans('auth.address1'),
+                'address2'                      => trans('auth.address2'),
+                'city'                          => trans('auth.city'),
+                'state'                         => trans('auth.state'),
+                'zip_code'                      => trans('auth.zipCode'),
+                // 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
+                // 'captcha.min'                   => trans('auth.CaptchaWrong'),
             ]
         );
     }
@@ -100,7 +113,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $ipAddress = new CaptureIpTrait();
-
+        $token = str_random(64);
         if (config('settings.activation')) {
             $role = Role::where('slug', '=', 'unverified')->first();
             $activated = false;
@@ -114,8 +127,14 @@ class RegisterController extends Controller
             'first_name'        => strip_tags($data['first_name']),
             'last_name'         => strip_tags($data['last_name']),
             'email'             => $data['email'],
+            'tel_no'             => $data['tel_no'],
+            'address1'             => $data['address1'],
+            'address2'             => $data['address2'],
+            'city'             => $data['city'],
+            'state'             => $data['state'],
+            'zip_code'             => $data['zip_code'],
             'password'          => Hash::make($data['password']),
-            'token'             => str_random(64),
+            'token'             => $token,
             'signup_ip_address' => $ipAddress->getClientIp(),
             'activated'         => $activated,
         ]);
@@ -126,6 +145,12 @@ class RegisterController extends Controller
         $profile = new Profile();
         $user->profile()->save($profile);
         $user->save();
+
+        Activation::create([
+            'user_id'       => $user->id,
+            'token'         => $token,
+            'ip_address'    => $ipAddress->getClientIp()
+        ]);
 
         return $user;
     }

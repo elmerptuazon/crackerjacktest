@@ -76,5 +76,10 @@ return [
     'captchaRequire'   => 'Captcha é obrigatório',
     'CaptchaWrong'     => 'Erro captcha, Por favor tente novamente.',
     'roleRequired'     => 'O campo usuário e obrigatória',
-
+    'telNo'            => 'Telephone number is required.',
+    'address1'         => 'Address required',
+    'address2'         => 'Address required',
+    'city'             => 'City required',
+    'state'            => 'State required',
+    'zipCode'          => 'Zip Code required',
 ];

@@ -24,6 +24,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('activated')->default(false);
             $table->string('token');
+            $table->string('tel_no');
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip_code');
             $table->ipAddress('signup_ip_address')->nullable();
             $table->ipAddress('signup_confirmation_ip_address')->nullable();
             $table->ipAddress('signup_sm_ip_address')->nullable();

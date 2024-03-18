@@ -32,6 +32,12 @@ class UserFactory extends Factory
             'remember_token'                 => Str::random(10),
             'signup_ip_address'              => fake()->ipv4,
             'signup_confirmation_ip_address' => fake()->ipv4,
+            'tel_no'                         => fake()->name(),
+            'address1'                       => fake()->name(),
+            'address2'                       => fake()->name(),
+            'city'                           => fake()->name(),
+            'state'                          => fake()->name(),
+            'zip_code'                       => fake()->name(),
         ];
     }
 }

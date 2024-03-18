@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
     private function createUser($faker, $email, $role)
     {
         $user = User::where('email', '=', $email)->first();
+        
         if (null === $user) {
             $user = User::create([
                 'name'                           => $faker->userName,
@@ -40,8 +41,13 @@ class UsersTableSeeder extends Seeder
                 'activated'                      => true,
                 'signup_ip_address'              => $faker->ipv4,
                 'signup_confirmation_ip_address' => $faker->ipv4,
+                'tel_no'                         => '09267831162',
+                'address1'                       => 'sample',
+                'address2'                       => 'another sample',
+                'city'                           => 'lipa',
+                'state'                          => 'batangas',
+                'zip_code'                       => '12132',
             ]);
-
             $user->profile()->save(new Profile());
             $user->attachRole($role);
             $user->save();

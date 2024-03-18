@@ -69,6 +69,12 @@ class User extends Authenticatable
         'admin_ip_address',
         'updated_ip_address',
         'deleted_ip_address',
+        'tel_no',
+        'address1',
+        'address2',
+        'city',
+        'state',
+        'zip_code',
     ];
 
     /**
